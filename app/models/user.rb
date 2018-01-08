@@ -1,9 +1,6 @@
 class User < ActiveRecord::Base
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :wolftech_authenticatable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  include DeviseModules
 
   include EnumerationUtilities
   # app/models/concerns/ref_integrity.rb
@@ -29,7 +26,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  # has_many :open_orders, through: :order_users, class_name: 'Order', where: { open: }
   has_many :order_assignments
   has_many :assigned_orders, through: :order_assignments, source: :order
   has_many :notes, as: :noted
