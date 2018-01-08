@@ -13,6 +13,8 @@
 /config/email.yml
 /README.md.old
 
+/NCSU_CUSTOMIZATIONS.md
+
 # Ignore sqlite db if there is one
 /db/*.sqlite3
 

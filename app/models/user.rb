@@ -1,11 +1,15 @@
 class User < ActiveRecord::Base
 
   include DeviseModules
+  include NCSULdap
+  require 'campus-ldap.rb'
 
+  # lib/modules
   include EnumerationUtilities
-  # app/models/concerns/ref_integrity.rb
+
+
+  # app/models/concerns
   include RefIntegrity
-  # app/models/concerns/solr_doc.rb
   include SolrDoc
   include VersionsSupport
 
@@ -13,10 +17,6 @@ class User < ActiveRecord::Base
   has_many :order_users
   has_many :item_orders
   has_many :notes, as: :noted
-
-  include NCSULdap
-  require 'campus-ldap.rb'
-
   has_many :orders, through: :order_users do
     def open
       where(open: true)
@@ -25,15 +25,12 @@ class User < ActiveRecord::Base
       where(open: false)
     end
   end
-
   has_many :order_assignments
   has_many :assigned_orders, through: :order_assignments, source: :order
   has_many :notes, as: :noted
-
   has_many :user_access_sessions
   has_many :access_sessions, through: :user_access_sessions
   has_many :accessed_items, through: :access_sessions
-
   has_many :state_transitions
 
   has_paper_trail
