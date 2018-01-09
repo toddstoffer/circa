@@ -4,14 +4,14 @@ defaults: &defaults
   archivesspace_frontend_host: localhost
   archivesspace_solr_host: localhost
   archivesspace_backend_host: localhost
-  archivesspace_https: true
+  archivesspace_https: '1'
   archivesspace_username: admin
   archivesspace_password: n0tadm1n
   archivesspace_solr_core_path: '/collection1/'
 
   ### email settings
-  order_notification_default_email: 'jlbaker2@ncsu.edu,trthorn2@ncsu.edu'
-  order_notification_digital_items_email: 'bjdietz@ncsu.edu'
+  order_notification_default_email: 'trthorn2@ncsu.edu'
+  order_notification_digital_items_email: 'trthorn2@ncsu.edu'
   circa_email: 'scrc@ncsu.edu'
   circa_email_display_name: 'NCSU Special Collections Research Center'
 
@@ -26,13 +26,11 @@ defaults: &defaults
   wolftech_password: W0lfp@ck
 
   ### misc options
-  use_devise_passwords: '1'
+  # use_devise_passwords: '1'
   send_order_notifications: '1'
 
 development:
   <<: *defaults
-  order_notification_default_email: 'trthorn2@ncsu.edu'
-  order_notification_digital_items_email: 'trthorn2@ncsu.edu'
 
 test:
   <<: *defaults
@@ -41,11 +39,7 @@ test:
 
 staging:
   <<: *defaults
-  order_notification_default_email: 'trthorn2@ncsu.edu'
-  order_notification_digital_items_email: 'trthorn2@ncsu.edu'
+
 
 production:
   <<: *defaults
-  archivesspace_frontend_host: staff.archivesspace.lib.ncsu.edu
-  archivesspace_solr_host: solr.archivesspace.lib.ncsu.edu
-  archivesspace_backend_host: api.archivesspace.lib.ncsu.edu

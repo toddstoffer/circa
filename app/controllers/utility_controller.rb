@@ -224,8 +224,10 @@ class UtilityController < ApplicationController
 
 
   def options
-    @options = YAML.load_file('config/options.yml')
-    render json: { options: @options }
+    render json: {
+      send_order_notifications: ENV['send_order_notifications'],
+      use_devise_passwords: ENV['use_devise_passwords']
+    }
   end
 
 end
