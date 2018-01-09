@@ -5,6 +5,7 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 # Ignore secrets
+/config/application.yml
 /config/deploy.rb
 /config/database.yml
 /config/secrets.yml
