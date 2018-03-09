@@ -1,9 +1,13 @@
 require 'active_support/concern'
 
-module NCSULdap
+module UserCustom
   extend ActiveSupport::Concern
 
   included do
+
+    # add custom methods, validators, etc.
+
+    require 'campus-ldap.rb'
 
     def self.create_from_ldap(unity_id, options = {})
       user = User.find_by(unity_id: unity_id)
@@ -16,7 +20,6 @@ module NCSULdap
       user
     end
 
-    # NCSU-specific
     def self.attributes_from_ldap(uid)
       uid.strip!
 

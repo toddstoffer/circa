@@ -1,17 +1,10 @@
 class User < ActiveRecord::Base
 
-  include DeviseModules
-  include NCSULdap
-  require 'campus-ldap.rb'
-
-  # lib/modules
   include EnumerationUtilities
-
-
-  # app/models/concerns
   include RefIntegrity
   include SolrDoc
   include VersionsSupport
+  include UserCustom
 
   belongs_to :user_role
   has_many :order_users
@@ -57,36 +50,29 @@ class User < ActiveRecord::Base
     RequestStore.store[:user]
   end
 
-
   def self.current=(user)
     RequestStore.store[:user] = user
   end
-
 
   def self.staff_patron_type_id
     get_enumeration_value_id('staff', 'patron_type')
   end
 
-
   def open_orders
     orders.open
   end
-
 
   def completed_orders
     orders.completed
   end
 
-
   def patron_type
     get_enumeration_value(patron_type_id)
   end
 
-
   def has_active_access_session
     access_sessions.where(active: true).count > 0
   end
-
 
   # user_role methods
 
@@ -94,16 +80,13 @@ class User < ActiveRecord::Base
     assignable_roles.map { |r| r.name }
   end
 
-
   def role
     user_role.name
   end
 
-
   def assign_role(new_user_role)
     update_attributes(user_role_id: new_user_role.id)
   end
-
 
   def is_admin?
     admin_role = UserRole.find_by_name('admin')
@@ -115,17 +98,10 @@ class User < ActiveRecord::Base
     end
   end
 
-
   # alias for is_admin?, used by serializers
   def is_admin
     is_admin?
   end
-
-
-  # def has_role?(r)
-  #   roles.include?(r.to_sym)
-  # end
-
 
   def assignable_roles
     roles = []
@@ -136,7 +112,6 @@ class User < ActiveRecord::Base
     end
     roles
   end
-
 
   def can_assign_role?(user_role_id)
     assignable_roles.map { |r| r.id }.include?(user_role_id.to_i)

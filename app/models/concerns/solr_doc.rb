@@ -220,12 +220,6 @@ module SolrDoc
         doc[:source] = source
         doc[:source_id] = source_id
 
-      # when AccessSession
-      #   [:start_datetime, :end_datetime, :item_id, :order_id, :active].each do |attr|
-      #     doc[attr] = self[attr]
-      #   end
-      #   doc[:user_id] = users.map { |u| u.id }
-
       end
 
       # remove nil/empty values
