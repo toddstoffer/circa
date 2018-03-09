@@ -5,7 +5,6 @@ module NCSULdap
 
   included do
 
-
     def self.create_from_ldap(unity_id, options = {})
       user = User.find_by(unity_id: unity_id)
       if !user
@@ -16,7 +15,6 @@ module NCSULdap
       end
       user
     end
-
 
     # NCSU-specific
     def self.attributes_from_ldap(uid)
@@ -71,14 +69,12 @@ module NCSULdap
       attributes
     end
 
-
     def update_from_ldap
       attributes = User.attributes_from_ldap(self.unity_id)
       if attributes
         update_attributes(attributes)
       end
     end
-
 
   end
 
