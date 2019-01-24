@@ -9,7 +9,7 @@
     - project_name: circa
   roles:
     - role: basic-setup
-    - role: rvm_io.ruby
+    - role: rvm.ruby
       tags: ruby
       rvm1_rubies:
         - "{{ ruby_version }}"
