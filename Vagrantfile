@@ -1,6 +1,22 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# Verify and install required plugins
+required_plugins = %s(vagrant-vbguest)
+# TODO: Should we auto-update these?
+if ENV['VAGRANT_PLUGINS_UPDATED']=='true'
+   alreadyUpdated = 'true'
+end
+
+if alreadyUpdated != 'true' && (ARGV[0] == "up" || ARGV[0] == "provision")
+  system "vagrant plugin install #{required_plugins}"
+  system "vagrant plugin update #{required_plugins}"
+  ENV['VAGRANT_PLUGINS_UPDATED'] = 'true'
+
+  # Restart vagrant after plugin updates
+  exec "vagrant #{ARGV.join(' ')}"
+end
+
 Vagrant.configure("2") do |config|
   config.vm.box = "centos/7"
   config.vm.hostname = "circa"
